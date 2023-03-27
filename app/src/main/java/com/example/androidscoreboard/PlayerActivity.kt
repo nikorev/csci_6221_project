@@ -2,29 +2,26 @@ package com.example.androidscoreboard
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.LinearLayoutManager
 
+@Suppress("DEPRECATION")
 class PlayerActivity : AppCompatActivity() {
 
-    lateinit var nameEntryText:EditText
-    lateinit var scoreEntryText:EditText
+    private lateinit var nameEntryText:EditText
+    private lateinit var scoreEntryText:EditText
 
-    lateinit var submitButton:Button
-    lateinit var cancelButton:Button
-    lateinit var deleteButton:Button
+    private lateinit var submitButton:Button
+    private lateinit var cancelButton:Button
+    private lateinit var deleteButton:Button
 
-    lateinit var colorButtons:List<Button>
-    var selectedColorButtonIdx = 0
-    var colors: List<Int> = listOf(R.color.red_700, R.color.deeppurple_700, R.color.blue_700, R.color.green_700,
+    private lateinit var colorButtons:List<Button>
+    private var selectedColorButtonIdx = 0
+    private var colors: List<Int> = listOf(R.color.red_700, R.color.deeppurple_700, R.color.blue_700, R.color.green_700,
         R.color.yellow_700, R.color.deeporange_700, R.color.teal2_700, R.color.gray_700)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +35,8 @@ class PlayerActivity : AppCompatActivity() {
         cancelButton = findViewById(R.id.cancelButton)
         deleteButton = findViewById(R.id.deleteButton)
 
-        var editIdx = intent.getIntExtra("editIdx", -1)
+        val editIdx = intent.getIntExtra("editIdx", -1)
+        @Suppress("UNCHECKED_CAST")
         var scoreboardEntries = intent.getSerializableExtra("scoreboardEntries") as MutableList<ScoreboardEntry>
 
         if(editIdx > -1) { // existing entry, populate fields with data
@@ -46,15 +44,15 @@ class PlayerActivity : AppCompatActivity() {
             scoreEntryText.setText(scoreboardEntries[editIdx].score.toString())
             submitButton.isEnabled = true
             deleteButton.visibility = View.VISIBLE
-            setTitle("Edit Player")
+            title = "Edit Player"
 
-            for(i in 0..colors.size-1) {
+            for(i in colors.indices) {
                 if (scoreboardEntries[editIdx].color == colors[i]) {
                     selectedColorButtonIdx = i
                 }
             }
         } else {
-            setTitle("Add Player")
+            title = "Add Player"
         }
 
         initializeColorButtons()
@@ -79,7 +77,7 @@ class PlayerActivity : AppCompatActivity() {
 
             scoreboardEntries = scoreboardEntries.sortedByDescending { it.score }.toMutableList()
 
-            val intent:Intent = Intent()
+            val intent = Intent()
             intent.putExtra("scoreboardEntries", scoreboardEntries as java.io.Serializable)
             setResult(Activity.RESULT_OK, intent)
             finish()
@@ -94,14 +92,14 @@ class PlayerActivity : AppCompatActivity() {
             // Button is invisible if editIdx < 0
             scoreboardEntries.removeAt(editIdx)
 
-            val intent:Intent = Intent()
+            val intent = Intent()
             intent.putExtra("scoreboardEntries", scoreboardEntries as java.io.Serializable)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
     }
 
-    fun initializeColorButtons() {
+    private fun initializeColorButtons() {
         colorButtons = listOf(
             findViewById(R.id.colorButton1),
             findViewById(R.id.colorButton2),
@@ -116,7 +114,7 @@ class PlayerActivity : AppCompatActivity() {
         // Initial default color
         colorButtons[selectedColorButtonIdx].text = "✓"
 
-        for (i in 0..colorButtons.size-1) {
+        for (i in colorButtons.indices) {
             colorButtons[i].setOnClickListener {
                 colorButtons[selectedColorButtonIdx].text = ""
                 selectedColorButtonIdx = i
@@ -127,7 +125,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     // Ensures users can't submit an invalid entry to the table
-    fun validateEntry() {
+    private fun validateEntry() {
         if (nameEntryText.text.toString().isEmpty()) {
             submitButton.isEnabled = false
             return
