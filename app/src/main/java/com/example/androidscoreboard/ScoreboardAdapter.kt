@@ -28,33 +28,11 @@ class ScoreboardAdapter(var scoreboardEntries:List<ScoreboardEntry>): RecyclerVi
 
         val viewHolder:ViewHolder = ViewHolder(rootLayout)
 
-//        viewHolder.scoreText.doAfterTextChanged {
-//            if(viewHolder.scoreText.getText().length < 1) {
-//                viewHolder.scoreText.setText("0")
-//            }
-//
-//            println("HI")
-//            println(viewHolder.adapterPosition)
-//            println(scoreboardEntries.get(viewHolder.adapterPosition).name)
-//            scoreboardEntries.get(viewHolder.adapterPosition).score = viewHolder.scoreText.getText().toString().toInt()
-//
-//            scoreboardEntries.get(viewHolder.adapterPosition).name = "TEST"
-//
-//
-//            //notifyItemChanged(viewHolder.adapterPosition)
-//            //super.onBindViewHolder(viewHol)
-//            //super.onBindViewHolder(viewHolder, viewHolder.adapterPosition, mutableListOf<Any>())
-//
-//            //scoreboardEntries.sortByDescending { it.score }
-//            println(scoreboardEntries)
-//            //notifyDataSetChanged()
-//        }
-
+        // For each of the rows/players, open a PlayerActivity Intent based upon that player's data
         viewHolder.nameButton.setOnClickListener {
             val intent:Intent = Intent(parent.context, PlayerActivity::class.java)
             intent.putExtra("editIdx", viewHolder.adapterPosition)
             intent.putExtra("scoreboardEntries", scoreboardEntries as java.io.Serializable)
-            //startActivity(parent.context, intent, null)
             (parent.context as Activity).startActivityForResult(intent, 1, null)
         }
 
@@ -62,7 +40,6 @@ class ScoreboardAdapter(var scoreboardEntries:List<ScoreboardEntry>): RecyclerVi
             val intent:Intent = Intent(parent.context, PlayerActivity::class.java)
             intent.putExtra("editIdx", viewHolder.adapterPosition)
             intent.putExtra("scoreboardEntries", scoreboardEntries as java.io.Serializable)
-            //startActivity(parent.context, intent, null)
             (parent.context as Activity).startActivityForResult(intent, 1, null)
         }
 
@@ -70,6 +47,7 @@ class ScoreboardAdapter(var scoreboardEntries:List<ScoreboardEntry>): RecyclerVi
         return viewHolder
     }
 
+    // Binding a viewholder means data is ready to be populated, grab it from the scoreboardEntries list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val scoreboardEntry = scoreboardEntries[position]
 
@@ -87,9 +65,4 @@ class ScoreboardAdapter(var scoreboardEntries:List<ScoreboardEntry>): RecyclerVi
         return scoreboardEntries.size
     }
 
-    private fun sortList() {
-        this.scoreboardEntries.sortedByDescending { it.score }
-        println(scoreboardEntries)
-        //notifyDataSetChanged()
-    }
 }

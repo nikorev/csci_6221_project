@@ -70,7 +70,6 @@ class PlayerActivity : AppCompatActivity() {
 
         submitButton.setOnClickListener {
             if(editIdx < 0) { // new entry
-                // Teal 200 for now
                 scoreboardEntries.add(ScoreboardEntry(colors[selectedColorButtonIdx], nameEntryText.text.toString(), scoreEntryText.text.toString().toInt()))
             } else { // existing entry
                 scoreboardEntries[editIdx].color = colors[selectedColorButtonIdx]
@@ -127,6 +126,7 @@ class PlayerActivity : AppCompatActivity() {
 
     }
 
+    // Ensures users can't submit an invalid entry to the table
     fun validateEntry() {
         if (nameEntryText.text.toString().isEmpty()) {
             submitButton.isEnabled = false

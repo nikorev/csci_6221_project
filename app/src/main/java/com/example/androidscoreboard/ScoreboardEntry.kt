@@ -14,10 +14,3 @@ class ScoreboardEntry : Serializable {
     }
 
 }
-//
-//data class ScoreboardEntry(
-//    var color: Int,
-//    var name:String,
-//    var score:Int
-//){
-//}

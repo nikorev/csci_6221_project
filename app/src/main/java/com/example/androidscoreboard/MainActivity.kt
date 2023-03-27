@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var scoreboardRecyclerView: RecyclerView
     private lateinit var newPlayerButton:FloatingActionButton
 
+    // Will automatically be populated+updated based on PlayerActivity intent (return intent)
     private var scoreboardEntries:MutableList<ScoreboardEntry> = mutableListOf<ScoreboardEntry>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,20 +31,17 @@ class MainActivity : AppCompatActivity() {
             val intent:Intent = Intent(this, PlayerActivity::class.java)
             intent.putExtra("editIdx", -1)
             intent.putExtra("scoreboardEntries", scoreboardEntries as java.io.Serializable)
-            //startActivity(parent.context, intent, null)
             startActivityForResult(intent, 1, null)
         }
 
-       scoreboardEntries = testFakeEntries()
         val scoreboardAdapter = ScoreboardAdapter(scoreboardEntries)
         scoreboardRecyclerView.adapter = scoreboardAdapter
 
         scoreboardRecyclerView.layoutManager = LinearLayoutManager(this)
-
-//        scoreboardAdapter.scoreboardEntries.add(ScoreboardEntry(Color.RED, "Ralph", 0))
-//        scoreboardAdapter.notifyDataSetChanged()
     }
 
+    // This is when the PlayerActivity returns back to the main screen
+    // Our scoreboardEntries has been updated+sorted, pass it to the RecyclerView Adapter
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -55,13 +53,5 @@ class MainActivity : AppCompatActivity() {
 
             scoreboardRecyclerView.layoutManager = LinearLayoutManager(this)
         }
-    }
-
-    private fun testFakeEntries(): MutableList<ScoreboardEntry> {
-        return mutableListOf(
-            ScoreboardEntry(R.color.red_700, "Bob", 0),
-            ScoreboardEntry(R.color.deeppurple_700, "Gary", 0),
-            ScoreboardEntry(R.color.blue_700, "Max", 0)
-        )
     }
 }
