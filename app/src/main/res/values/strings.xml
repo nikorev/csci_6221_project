@@ -7,4 +7,5 @@
     <string name="confirm">✓</string>
     <string name="zero">0</string>
     <string name="delete_player">Delete Player</string>
+    <string name="add_team_prompt">Tap to add a team!</string>
 </resources>
