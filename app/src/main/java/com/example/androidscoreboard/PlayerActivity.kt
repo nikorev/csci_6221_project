@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 
 @Suppress("DEPRECATION")
@@ -112,13 +113,16 @@ class PlayerActivity : AppCompatActivity() {
         )
 
         // Initial default color
-        colorButtons[selectedColorButtonIdx].text = "✓"
+        colorButtons[selectedColorButtonIdx].text = getString(R.string.confirm)
 
         for (i in colorButtons.indices) {
+            colorButtons[i].backgroundTintList =
+                ContextCompat.getColorStateList(colorButtons[i].context, colors[i])
+
             colorButtons[i].setOnClickListener {
                 colorButtons[selectedColorButtonIdx].text = ""
                 selectedColorButtonIdx = i
-                colorButtons[selectedColorButtonIdx].text = "✓"
+                colorButtons[selectedColorButtonIdx].text = getString(R.string.confirm)
             }
         }
 

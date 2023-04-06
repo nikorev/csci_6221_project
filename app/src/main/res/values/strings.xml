@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Android Scoreboard</string>
+    <string name="name">Name</string>
+    <string name="color">Color</string>
+    <string name="score">Score</string>
+    <string name="cancel">X</string>
+    <string name="confirm">✓</string>
+    <string name="zero">0</string>
+    <string name="delete_player">Delete Player</string>
 </resources>
