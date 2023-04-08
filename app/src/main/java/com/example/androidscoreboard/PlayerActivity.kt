@@ -22,8 +22,8 @@ class PlayerActivity : AppCompatActivity() {
 
     private lateinit var colorButtons:List<Button>
     private var selectedColorButtonIdx = 0
-    private var colors: List<Int> = listOf(R.color.red_700, R.color.deeppurple_700, R.color.blue_700, R.color.green_700,
-        R.color.yellow_700, R.color.deeporange_700, R.color.teal2_700, R.color.gray_700)
+    private var colors: List<Int> = listOf(R.color.teal_700, R.color.teal_200, R.color.green_500, R.color.yellow_700,
+        R.color.gray_700, R.color.pink_200, R.color.red_700, R.color.deeporange_700)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
